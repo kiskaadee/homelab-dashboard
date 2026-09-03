@@ -1,0 +1,28 @@
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    restart: always
+    volumes:
+      - ./config:/app/config
+    environment:
+      - HOMEPAGE_ALLOWED_HOSTS=${SERVICE_DOMAIN:-dashboard.arch-services.mywire.org}
+    networks:
+      - proxy-net
+      - socket-net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.homepage.rule=Host(`${SERVICE_DOMAIN:-dashboard.arch-services.mywire.org}`)"
+      - "traefik.http.routers.homepage.entrypoints=websecure"
+      - "traefik.http.routers.homepage.tls=true"
+      - "traefik.http.routers.homepage.service=homepage-svc"
+      - "traefik.http.routers.homepage-red.rule=Host(`${SERVICE_DOMAIN:-dashboard.arch-services.mywire.org}`)"
+      - "traefik.http.routers.homepage-red.entrypoints=web"
+      - "traefik.http.routers.homepage-red.middlewares=https-redirect@docker"
+      - "traefik.http.services.homepage-svc.loadbalancer.server.port=3000"
+
+networks:
+  proxy-net:
+    external: true
+  socket-net:
+    external: true

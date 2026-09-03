@@ -1,0 +1,7 @@
+name: "dashboard"
+domain: "dashboard.arch-services.mywire.org"
+description: "Homelab Service Dashboard & Application Launcher"
+auth: false
+networks:
+  - proxy-net
+  - socket-net
