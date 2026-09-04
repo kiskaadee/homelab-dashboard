@@ -1,6 +1,9 @@
 name: "dashboard"
+aliases:
+  - "dash"
 domain: "dashboard.roadtotech.me"
 description: "Homelab Service Dashboard & Application Launcher"
+visible: false
 auth: false
 networks:
   - proxy-net
