@@ -8,3 +8,5 @@ auth: false
 networks:
   - proxy-net
   - socket-net
+env:
+  LEARNING_DOMAIN: "learning.roadtotech.me"
