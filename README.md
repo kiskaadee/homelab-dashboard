@@ -1,33 +1,39 @@
-# 📊 Homelab Dashboard (getHomepage + Learning Hub)
+# 📊 Homelab Dashboard (Homepage & Learning Hub)
 
-Unified personal portal for the homelab infrastructure, combining:
-1. **getHomepage**: Service catalog, dynamic system widgets, and bookmark launcher.
-2. **Learning API (FastAPI + Turso)**: Backend service powering the embedded interactive Kanban board in the dashboard UI.
-
-Part of the [homelab-core](https://github.com/kiskaadee/homelab-core) cluster ecosystem.
+Unified service dashboard portal and learning hub backend for the `roadtotech.me` homelab cluster.
 
 ---
 
-## 🏗️ Architecture & Stack
+## 🏗️ Architecture & Requirements
 
-- **Dashboard**: `ghcr.io/gethomepage/homepage:latest` (Port `3000`)
-- **Learning Backend**: Custom Python/FastAPI app in `./learning/` (Port `8000`)
-- **Database**: Cloud Turso / LibSQL
-- **Ingress**: Traefik (attached to `proxy-net` & `socket-net`)
+- **Proxy Network**: Attached to external `proxy-net`
+- **Socket Network**: Attached to `socket-net` for container discovery
+- **Domain**: `dashboard.roadtotech.me`
+- **Learning Hub API**: `learning.roadtotech.me`
+- **Target Ports**: `3000` (Homepage UI), `8000` (FastAPI / SQLite backend)
 
 ---
 
-## ⚙️ Environment Variables & Secrets
+## ⚙️ Configuration & Metadata (`app.yaml`)
 
-Decrypted globally from SOPS via `/run/secrets/rendered/traefik-deployments.env`:
+This application is self-describing via `app.yaml`:
 
-| Variable | Description | Default / Example |
-| :--- | :--- | :--- |
-| `SERVICE_DOMAIN` | Dashboard FQDN | `dashboard.arch-services.mywire.org` |
-| `LEARNING_DOMAIN` | Learning Backend API FQDN | `learning.arch-services.mywire.org` |
-| `TURSO_DATABASE_URL` | Turso connection string | Loaded from SOPS |
-| `TURSO_AUTH_TOKEN` | Turso authentication token | Loaded from SOPS |
-| `PROXY_NETWORK` | Docker gateway network | `proxy-net` |
+```yaml
+name: "dashboard"
+aliases:
+  - "dash"
+domain: "dashboard.roadtotech.me"
+description: "Homelab Service Dashboard & Application Launcher"
+visible: false
+auth: false
+networks:
+  - proxy-net
+  - socket-net
+env:
+  LEARNING_DOMAIN: "learning.roadtotech.me"
+```
+
+Homepage's `config/services.yaml` is dynamically generated from all registered `Sites/*/app.yaml` manifests using `appctl sync`.
 
 ---
 
@@ -35,11 +41,17 @@ Decrypted globally from SOPS via `/run/secrets/rendered/traefik-deployments.env`
 
 ### Via Orchestrator (`appctl`)
 ```bash
-appctl up homelab-dashboard
-appctl logs homelab-dashboard
+appctl up dashboard
+# or using the shortcut alias
+appctl up dash
 ```
 
 ### Manual Deployment
 ```bash
-docker compose up --build -d
+docker compose up -d
 ```
+
+---
+
+## 📄 License
+This repository is released into the public domain under the [Unlicense](LICENSE).
