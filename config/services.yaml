@@ -15,31 +15,31 @@
     #     container: ollama-ollama-1
     - Jellyfin:
         icon: jellyfin.png
-        href: https://jellyfin.arch-services.mywire.org
+        href: https://jellyfin.roadtotech.me
         description: Media Server
         server: my-docker
         container: jellyfin
     - Excalidraw:
         icon: excalidraw.png
-        href: https://excalidraw.arch-services.mywire.org
+        href: https://excalidraw.roadtotech.me
         description: Sketching Tool
         server: my-docker
         container: excalidraw-excalidraw-1
     - Mermaid:
         icon: mermaid.png
-        href: https://mermaid.arch-services.mywire.org
+        href: https://mermaid.roadtotech.me
         description: Diagramming Tool
         server: my-docker
         container: mermaid-live-editor
     - Docs-Viewer:
         icon: files.png
-        href: https://docs.arch-services.mywire.org
+        href: https://docs.roadtotech.me
         description: Reactive docs viewer
         server: my-docker
         container: docs
     - Minecraft:
         icon: minecraft.png
-        href: https://minecraft.arch-services.mywire.org
+        href: https://minecraft.roadtotech.me
         description: Self hosted Minecraft server
         server: my-docker
         container: minecraft-server

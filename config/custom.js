@@ -3,7 +3,7 @@
  */
 
 function getApiBase() {
-    return `https://learning.arch-services.mywire.org`;
+    return `https://learning.roadtotech.me`;
 }
 
 const API_BASE = getApiBase();

@@ -6,19 +6,19 @@ services:
     volumes:
       - ./config:/app/config
     environment:
-      - HOMEPAGE_ALLOWED_HOSTS=${SERVICE_DOMAIN:-dashboard.arch-services.mywire.org}
+      - HOMEPAGE_ALLOWED_HOSTS=${SERVICE_DOMAIN:-dashboard.roadtotech.me}
     networks:
       - proxy-net
       - socket-net
     labels:
       - "traefik.enable=true"
       # Public (HTTPS)
-      - "traefik.http.routers.homepage.rule=Host(`${SERVICE_DOMAIN:-dashboard.arch-services.mywire.org}`)"
+      - "traefik.http.routers.homepage.rule=Host(`${SERVICE_DOMAIN:-dashboard.roadtotech.me}`)"
       - "traefik.http.routers.homepage.entrypoints=websecure"
       - "traefik.http.routers.homepage.tls=true"
       - "traefik.http.routers.homepage.service=homepage-svc"
       # Public (Redirect)
-      - "traefik.http.routers.homepage-red.rule=Host(`${SERVICE_DOMAIN:-dashboard.arch-services.mywire.org}`)"
+      - "traefik.http.routers.homepage-red.rule=Host(`${SERVICE_DOMAIN:-dashboard.roadtotech.me}`)"
       - "traefik.http.routers.homepage-red.entrypoints=web"
       - "traefik.http.routers.homepage-red.middlewares=https-redirect@docker"
       - "traefik.http.services.homepage-svc.loadbalancer.server.port=3000"
@@ -37,12 +37,12 @@ services:
     labels:
       - "traefik.enable=true"
       # HTTPS Router
-      - "traefik.http.routers.learning.rule=Host(`${LEARNING_DOMAIN:-learning.arch-services.mywire.org}`)"
+      - "traefik.http.routers.learning.rule=Host(`${LEARNING_DOMAIN:-learning.roadtotech.me}`)"
       - "traefik.http.routers.learning.entrypoints=websecure"
       - "traefik.http.routers.learning.tls=true"
       - "traefik.http.routers.learning.service=learning-svc"
       # HTTP to HTTPS Redirect
-      - "traefik.http.routers.learning-red.rule=Host(`${LEARNING_DOMAIN:-learning.arch-services.mywire.org}`)"
+      - "traefik.http.routers.learning-red.rule=Host(`${LEARNING_DOMAIN:-learning.roadtotech.me}`)"
       - "traefik.http.routers.learning-red.entrypoints=web"
       - "traefik.http.routers.learning-red.middlewares=https-redirect@docker"
       # Service Definition

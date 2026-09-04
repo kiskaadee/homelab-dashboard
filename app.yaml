@@ -1,5 +1,5 @@
 name: "dashboard"
-domain: "dashboard.arch-services.mywire.org"
+domain: "dashboard.roadtotech.me"
 description: "Homelab Service Dashboard & Application Launcher"
 auth: false
 networks:
