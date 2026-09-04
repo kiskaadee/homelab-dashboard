@@ -1,7 +1,9 @@
 .env
 *.log
 logs/
+config/services.yaml
 learning/data/
 learning/.venv/
 learning/__pycache__/
 .DS_Store
+
